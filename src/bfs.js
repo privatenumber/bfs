@@ -8,6 +8,9 @@ const log = function () {
 	console.log.apply(console, ['%c BFS ', 'background:#35495e; padding:2px; border-radius:3px; color:#fff'].concat(Array.from(arguments)));
 };
 
+const {isPrototypeOf} = Object.prototype;
+const isObject = object => typeof object === 'object' && object !== null;
+
 function visitNode([node, path], searchValue, queue, cache, silenceErrors) {
 	let foundMatches = 0;
 
@@ -35,10 +38,20 @@ function visitNode([node, path], searchValue, queue, cache, silenceErrors) {
 			continue;
 		}
 
-		if (value === searchValue) {
+		if (
+			value === searchValue ||
+
+			// TODO: Add option to check for inheritance, does value inherit searchValue?
+			(isObject(searchValue) && isObject(value) && isPrototypeOf.call(searchValue, value))
+		) {
 			log('👉 Found:', propPath);
 			foundMatches++;
-		} else if (TRAVERSABLE_TYPES.has(typeof value) && !cache.has(value)) {
+		} else if (
+			TRAVERSABLE_TYPES.has(typeof value) &&
+
+			// TODO: if we've encounterd a loop, we can add it to the output to show an alternative path w/o re-traversing
+			!cache.has(value)
+		) {
 			cache.add(value);
 			queue.push([value, propPath]);
 		}
