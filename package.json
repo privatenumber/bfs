@@ -1,9 +1,13 @@
 {
 	"name": "bfs",
 	"version": "0.0.0-semantic-release",
-	"description": "Find the location of a value in a complex graph",
+	"description": "Find the path of a value in a complex JavaScript object graph/tree",
 	"keywords": [
-		""
+		"bfs",
+		"breadth",
+		"first",
+		"search",
+		"breadth first search"
 	],
 	"license": "MIT",
 	"repository": "privatenumber/bfs",
