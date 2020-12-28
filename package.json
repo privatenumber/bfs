@@ -1,9 +1,13 @@
 {
 	"name": "bfs",
 	"version": "0.0.0-semantic-release",
-	"description": "Find the location of a value in a complex graph",
+	"description": "Find the path of a value in a complex JavaScript object graph/tree",
 	"keywords": [
-		""
+		"bfs",
+		"breadth",
+		"first",
+		"search",
+		"breadth first search"
 	],
 	"license": "MIT",
 	"repository": "privatenumber/bfs",
@@ -15,11 +19,10 @@
 	"files": [
 		"dist"
 	],
-	"main": "dist/bfs.js",
+	"main": "dist/bfs.umd.js",
 	"module": "dist/bfs.esm.js",
 	"scripts": {
-		"lint": "xo",
-		"test": "jest",
+		"lint": "eslint .",
 		"build": "rollup -c --environment NODE_ENV:production"
 	},
 	"husky": {
@@ -28,22 +31,24 @@
 		}
 	},
 	"lint-staged": {
-		"*.js": [
-			"xo",
-			"jest --bail --findRelatedTests"
-		]
+		"*.js": "eslint"
 	},
 	"devDependencies": {
+		"@babel/core": "^7.12.10",
 		"@babel/preset-env": "^7.12.1",
-		"babel-jest": "^26.6.3",
-		"core-js": "^3.7.0",
+		"@pvtnbr/eslint-config-base": "^0.1.2",
+		"@rollup/plugin-babel": "^5.2.2",
+		"eslint": "^7.16.0",
 		"husky": "^4.3.0",
-		"jest": "^26.6.3",
 		"lint-staged": "^10.5.1",
 		"rollup": "^2.33.3",
-		"rollup-plugin-babel": "^4.4.0",
 		"rollup-plugin-filesize": "^9.0.2",
-		"rollup-plugin-terser": "^7.0.2",
-		"xo": "^0.34.2"
+		"rollup-plugin-terser": "^7.0.2"
+	},
+	"eslintConfig": {
+		"extends": "@pvtnbr/eslint-config-base",
+		"env": {
+			"browser": true
+		}
 	}
 }

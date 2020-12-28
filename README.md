@@ -1,6 +1,6 @@
 # bfs [![Latest version](https://badgen.net/npm/v/bfs)](https://npm.im/bfs) [![Monthly downloads](https://badgen.net/npm/dm/bfs)](https://npm.im/bfs) [![Install size](https://packagephobia.now.sh/badge?p=bfs)](https://packagephobia.now.sh/result?p=bfs) [![Bundle size](https://badgen.net/bundlephobia/minzip/bfs)](https://bundlephobia.com/result?p=bfs)
 
-Find the path of a value in a complex JavaScript object.
+Find the path of a value in a complex JavaScript object graph/tree.
 
 This module is BFS ([Breadth-first Search](https://en.wikipedia.org/wiki/Breadth-first_search)) as a debugging tool to help with quickly understanding the relationships within an object tree/graph.
 
