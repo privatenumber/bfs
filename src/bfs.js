@@ -2,36 +2,39 @@ const TRAVERSABLE_TYPES = new Set(['object', 'function']);
 
 const isDOMElement = typeof Element === 'undefined' ? () => false : value => value instanceof Element;
 
-const isNil = value => value == null; // eslint-disable-line eqeqeq, no-eq-null
+const isNil = value => value == null; // eslint-disable-line no-eq-null
 
-const log = function () {
+function log() {
+	// eslint-disable-next-line prefer-rest-params, no-console, prefer-spread
 	console.log.apply(console, ['%c BFS ', 'background:#35495e; padding:2px; border-radius:3px; color:#fff'].concat(Array.from(arguments)));
-};
+}
 
-const {isPrototypeOf} = Object.prototype;
+const { isPrototypeOf } = Object.prototype;
 const isObject = object => typeof object === 'object' && object !== null;
 
+// eslint-disable-next-line complexity
 function visitNode([node, path], searchValue, queue, cache, silenceErrors) {
 	let foundMatches = 0;
 
 	const properties = Object.getOwnPropertyNames(node);
 
+	// eslint-disable-next-line unicorn/no-for-loop, no-plusplus
 	for (let i = 0; i < properties.length; i++) {
-		const prop = properties[i];
-		const propPath = path + '.' + prop;
+		const property = properties[i];
+		const propertyPath = path + '.' + property; // eslint-disable-line prefer-template
 
 		let value;
 		try {
-			value = node[prop];
+			value = node[property];
 		} catch (error) {
 			if (!silenceErrors) {
-				log(`⚠️ Caught error traversing "${propPath}"`, error);
+				log(`⚠️ Caught error traversing "${propertyPath}"`, error);
 			}
 		}
 
 		if (
-			isNil(value) ||
-			isDOMElement(value)
+			isNil(value)
+			|| isDOMElement(value)
 			// Object.getOwnPropertyDescriptor(node, prop).get ||
 			// prop.startsWith('_') ||
 		) {
@@ -39,21 +42,21 @@ function visitNode([node, path], searchValue, queue, cache, silenceErrors) {
 		}
 
 		if (
-			value === searchValue ||
+			value === searchValue
 
 			// TODO: Add option to check for inheritance, does value inherit searchValue?
-			(isObject(searchValue) && isObject(value) && isPrototypeOf.call(searchValue, value))
+			|| (isObject(searchValue) && isObject(value) && isPrototypeOf.call(searchValue, value))
 		) {
-			log('👉 Found:', propPath);
-			foundMatches++;
+			log('👉 Found:', propertyPath);
+			foundMatches++; // eslint-disable-line no-plusplus
 		} else if (
-			TRAVERSABLE_TYPES.has(typeof value) &&
+			TRAVERSABLE_TYPES.has(typeof value)
 
-			// TODO: if we've encounterd a loop, we can add it to the output to show an alternative path w/o re-traversing
-			!cache.has(value)
+			// TODO: if encounterd a loop, add to output to show an alternative path w/o re-traversing
+			&& !cache.has(value)
 		) {
 			cache.add(value);
-			queue.push([value, propPath]);
+			queue.push([value, propertyPath]);
 		}
 	}
 
@@ -87,11 +90,12 @@ function BFS(sourceNode, searchValue, options = {}) {
 
 	const updateLogger = setInterval(logUpdate, 2000);
 
-	const end = exitMessage => {
+	const end = (exitMessage) => {
 		clearInterval(updateLogger);
 		log(exitMessage);
 	};
 
+	// eslint-disable-next-line consistent-return
 	(function processNextNode() {
 		const nodeData = queue.shift(); // Might also be faster to pick a random one
 		const elapsed = (Date.now() - startTime);
