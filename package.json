@@ -19,7 +19,7 @@
 	"files": [
 		"dist"
 	],
-	"main": "dist/bfs.js",
+	"main": "dist/bfs.umd.js",
 	"module": "dist/bfs.esm.js",
 	"scripts": {
 		"lint": "eslint .",

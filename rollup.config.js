@@ -14,7 +14,7 @@ const rollupConfig = {
 	output: [
 		{
 			format: 'umd',
-			file: 'dist/bfs.js',
+			file: 'dist/bfs.umd.js',
 			name: 'BFS',
 			exports: 'default',
 		},
